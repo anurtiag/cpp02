@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 09:21:34 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/06/13 10:01:50 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:06:04 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Fixed::Fixed()
 {
     std::cout << "Default constructor called" << std::endl;
     value = 0;
-    point = 0;
+    point = 8;
 }
 
 Fixed::Fixed(Fixed &source)
