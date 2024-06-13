@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 09:21:34 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/06/13 11:16:23 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:27:19 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ int Fixed::getRawBits()
 void Fixed::setRawBits(const int raw)
 {
     std::cout << "setRawBits member function called" << std::endl;
-    this->value = raw;
+    this->point = raw;
 }
