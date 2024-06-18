@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 09:21:34 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/06/13 10:27:19 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:32:34 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Fixed::Fixed()
     point = 8;
 }
 
-Fixed::Fixed(Fixed &source)
+Fixed::Fixed(const Fixed &source)
 {
     std::cout << "Copy constructor called" << std::endl;
     this->value = source.value;
@@ -49,4 +49,68 @@ void Fixed::setRawBits(const int raw)
 {
     std::cout << "setRawBits member function called" << std::endl;
     this->point = raw;
+}
+
+Fixed::Fixed(const int nbr)
+{
+    this->value = nbr;
+    this->point = 8;
+    this->value = this->value << this->point;
+}
+
+Fixed::Fixed(const float nbr)
+{
+    float bit_value = MAX_VALUE;
+    float n = nbr;
+    this->point = 8;
+    this->value = 0;
+    if (nbr < 0)
+    {
+        this->value = 1;
+        n *= -1;
+    } 
+    for(int i = 0; i < F_BIT_NBR; i++)
+    {
+        this->value = this->value << 1;
+        if (n >= bit_value || ((unsigned int)((n - bit_value)) < (n - (bit_value - MIN_VALUE))))
+        {
+            n -= bit_value;
+            this->value += 1;
+        }
+        bit_value /= 2;
+    }
+}
+
+int Fixed::toInt(void) const
+{
+    int n = this->value >> this->point;
+    int bit_value = 1;
+    int nbr = 0;
+    for (int i = 0; i < I_BIT_NBR; i++)
+    {
+        if (n % 2 != 0)
+            nbr += bit_value;
+        n = n >> 1;
+        bit_value *= 2;
+    }
+    if (n % 2 != 0)
+        nbr *= -1;
+    return(nbr);
+}
+
+float Fixed::toFloat(void) const
+{
+    int n = this->value;
+    float bit_value = MIN_VALUE;
+    float nbr = 0;
+    for (int i = 0; i < F_BIT_NBR; i++)
+    {
+        if (n % 2 != 0)
+            nbr += bit_value;
+        n = n >> 1;
+        bit_value *= 2;
+    }
+    if (n % 2 != 0)
+        nbr *= -1;
+    return(nbr);
 }
