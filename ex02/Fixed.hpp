@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 09:21:37 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/06/19 09:45:11 by anurtiag         ###   ########.fr       */
+/*   Created: 2024/06/19 09:44:42 by anurtiag          #+#    #+#             */
+/*   Updated: 2024/06/19 14:46:19 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,24 @@ class Fixed
         void setRawBits(const int raw);
         int toInt() const;
         float toFloat(void) const;
+        bool operator<(const Fixed &obj);
+        bool operator<=(const Fixed &obj);
+        bool operator>(const Fixed &obj);
+        bool operator>=(const Fixed &obj);
+        bool operator==(const Fixed &obj);
+        bool operator!=(const Fixed &obj);
+        Fixed operator+(const Fixed &obj);
+        Fixed operator-(const Fixed &obj);
+        Fixed operator*(const Fixed &obj);
+        Fixed operator/(const Fixed &obj);
+        Fixed operator++();
+        Fixed operator++(int);
+        Fixed operator--();
+        Fixed operator--(int);
+        static Fixed &min(Fixed &obj1, Fixed &obj2);
+        static const Fixed &min(Fixed const &obj1, Fixed const &obj2);
+        static Fixed &max(Fixed &obj1, Fixed &obj2);
+        static const Fixed &max(Fixed const &obj1, Fixed const &obj2);
 };
 
 #endif

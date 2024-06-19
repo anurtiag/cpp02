@@ -6,7 +6,7 @@
 /*   By: anurtiag <anurtiag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 09:21:34 by anurtiag          #+#    #+#             */
-/*   Updated: 2024/06/18 16:32:34 by anurtiag         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:13:59 by anurtiag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,31 @@ void Fixed::setRawBits(const int raw)
 
 Fixed::Fixed(const int nbr)
 {
-    this->value = nbr;
+    std::cout << "Int constructor called" << std::endl;
+    float bit_value = MAX_VALUE;
+    int n = nbr;
     this->point = 8;
-    this->value = this->value << this->point;
+    this->value = 0;
+    if (nbr < 0)
+    {
+        this->value = 1;
+        n *= -1;
+    }
+    for(int i = 0; i < (BIT_NBR); i++)
+    {
+        this->value = this->value << 1;
+        if (n >= bit_value)
+        {
+            n -= bit_value;
+            this->value += 1;
+        }
+        bit_value /= 2;
+    }
 }
 
 Fixed::Fixed(const float nbr)
 {
+    std::cout << "Float constructor called" << std::endl;
     float bit_value = MAX_VALUE;
     float n = nbr;
     this->point = 8;
@@ -69,10 +87,10 @@ Fixed::Fixed(const float nbr)
         this->value = 1;
         n *= -1;
     } 
-    for(int i = 0; i < F_BIT_NBR; i++)
+    for(int i = 0; i < BIT_NBR; i++)
     {
         this->value = this->value << 1;
-        if (n >= bit_value || ((unsigned int)((n - bit_value)) < (n - (bit_value - MIN_VALUE))))
+        if (n >= bit_value || ((unsigned int)(n - bit_value) < (n - (bit_value - MIN_VALUE))))
         {
             n -= bit_value;
             this->value += 1;
@@ -86,7 +104,7 @@ int Fixed::toInt(void) const
     int n = this->value >> this->point;
     int bit_value = 1;
     int nbr = 0;
-    for (int i = 0; i < I_BIT_NBR; i++)
+    for (int i = 0; i < (BIT_NBR - this->point); i++)
     {
         if (n % 2 != 0)
             nbr += bit_value;
@@ -103,7 +121,7 @@ float Fixed::toFloat(void) const
     int n = this->value;
     float bit_value = MIN_VALUE;
     float nbr = 0;
-    for (int i = 0; i < F_BIT_NBR; i++)
+    for (int i = 0; i < BIT_NBR; i++)
     {
         if (n % 2 != 0)
             nbr += bit_value;
@@ -114,3 +132,4 @@ float Fixed::toFloat(void) const
         nbr *= -1;
     return(nbr);
 }
+
